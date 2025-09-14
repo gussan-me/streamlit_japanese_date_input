@@ -1,0 +1,312 @@
+/* iframe拡張ヘルパー */
+body, html, #root {
+  overflow: visible !important;
+  position: relative;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.date-input-container {
+  margin-bottom: 0.25rem;
+  position: relative;
+}
+
+.date-input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 14px;
+  color: rgb(49, 51, 63);
+}
+
+.date-input-field {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgb(49, 51, 63);
+  background-color: rgb(240, 242, 246);
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.date-input-field:focus {
+  outline: none;
+  border-color: rgb(255, 75, 75);
+}
+
+.date-input-field:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* カレンダーの位置設定 */
+.react-datepicker-popper {
+  z-index: 9999 !important;
+  position: absolute !important;
+  margin-top: 5px;
+  max-width: calc(100vw - 10px);
+  /* 横スクロールを防ぐ */
+  overflow: hidden;
+}
+
+/* 狭い画面での位置調整 */
+@media (max-width: 400px) {
+  .react-datepicker-popper {
+    left: 5px !important;
+  }
+}
+
+.react-datepicker-popper[data-placement^="bottom"] {
+  padding-top: 0 !important;
+}
+
+.react-datepicker-popper[data-placement^="top"] {
+  padding-bottom: 0 !important;
+}
+
+/* 非常に狭いコンテナでカレンダーを中央に配置 */
+.very-narrow-calendar .react-datepicker-popper {
+  left: 50% !important;
+  transform: translateX(-50%);
+}
+
+/* 狭いスペースでカレンダーを適切に配置 */
+.narrow-calendar .react-datepicker-popper,
+.very-narrow-calendar .react-datepicker-popper {
+  position: absolute !important;
+  width: auto !important;
+}
+
+.narrow-calendar .react-datepicker-popper .react-datepicker,
+.very-narrow-calendar .react-datepicker-popper .react-datepicker {
+  margin: 0;
+  transform-origin: top left;
+}
+
+.react-datepicker__tab-loop {
+  position: absolute !important;
+}
+
+.react-datepicker {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  transform-origin: top left;
+  /* オーバーフローを防ぐ */
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* 狭いスペース用のフォントサイズ調整 */
+.narrow-calendar .react-datepicker {
+  font-size: 0.75rem;
+}
+
+.very-narrow-calendar .react-datepicker {
+  font-size: 0.7rem;
+}
+
+/* 狭いスペース用のコンパクトな月/年ドロップダウン */
+.narrow-calendar .react-datepicker__month-dropdown,
+.narrow-calendar .react-datepicker__year-dropdown,
+.very-narrow-calendar .react-datepicker__month-dropdown,
+.very-narrow-calendar .react-datepicker__year-dropdown {
+  font-size: 0.75rem;
+  width: auto;
+}
+
+/* 非常に狭いコンテナ用のカレンダー幅調整 */
+.very-narrow-calendar .react-datepicker__month-container {
+  width: 100%;
+}
+
+/* サイドバーモードスタイル */
+.sidebar-mode .date-input-field {
+  background-color: white;
+  color: black;
+  border: none;
+}
+
+.sidebar-mode .date-input-label {
+  color: black;
+  font-weight: 500;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__header {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding-top: 0.5rem;
+}
+
+.react-datepicker__current-month {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.react-datepicker__day-names {
+  margin-bottom: 0;
+}
+
+.react-datepicker__day-name {
+  width: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.166rem;
+  color: #666;
+  font-weight: 500;
+  text-align: center;
+  flex: 1;
+}
+
+.react-datepicker__month {
+  margin: 0.5rem;
+}
+
+.react-datepicker__day {
+  width: 2.5rem;
+  line-height: 2.5rem;
+  margin: 0.166rem;
+  border-radius: 0.3rem;
+  text-align: center;
+  flex: 1;
+}
+
+/* 狭いスペース用の小さいセル */
+.narrow-calendar .react-datepicker__day,
+.narrow-calendar .react-datepicker__day-name,
+.sidebar-mode .react-datepicker__day,
+.sidebar-mode .react-datepicker__day-name {
+  width: auto;
+  min-width: 1.5rem;
+  line-height: 1.9rem;
+  margin: 0.05rem;
+  font-size: 0.75rem;
+  padding: 0 0.1rem;
+}
+
+.very-narrow-calendar .react-datepicker__day,
+.very-narrow-calendar .react-datepicker__day-name {
+  width: auto;
+  min-width: 1.3rem;
+  line-height: 1.8rem;
+  margin: 0.03rem;
+  font-size: 0.7rem;
+  padding: 0 0.05rem;
+}
+
+/* カレンダー全体の幅調整 */
+.react-datepicker__month-container {
+  /* カレンダーを中央に配置 */
+  margin: 0 auto;
+  width: 100%;
+}
+
+.react-datepicker__month {
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+/* 曜日ヘッダーの調整 */
+.react-datepicker__header {
+  /* ヘッダーの横スクロールを防ぐ */
+  overflow: hidden;
+}
+
+.react-datepicker__day-names {
+  /* 曜日行の幅を確実に収める */
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* 狭いコンテナでの曜日表示調整 */
+.narrow-calendar .react-datepicker__day-names,
+.very-narrow-calendar .react-datepicker__day-names {
+  padding: 0;
+}
+
+/* 日付グリッドも同様に調整 */
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  width: 100%;
+}
+
+.react-datepicker__day:hover {
+  background-color: #f0f0f0;
+}
+
+.react-datepicker__day--selected {
+  background-color: rgb(255, 75, 75);
+  color: white;
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: rgb(235, 55, 55);
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: rgba(255, 75, 75, 0.1);
+}
+
+.react-datepicker__day--today {
+  font-weight: 600;
+}
+
+.react-datepicker__day--outside-month {
+  color: #ccc;
+}
+
+.react-datepicker__day--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.react-datepicker__day--disabled:hover {
+  background-color: transparent;
+}
+
+.react-datepicker__month-dropdown,
+.react-datepicker__year-dropdown {
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+.react-datepicker__navigation {
+  top: 0.8rem;
+}
+
+.react-datepicker__navigation--previous {
+  left: 0.8rem;
+}
+
+.react-datepicker__navigation--next {
+  right: 0.8rem;
+}
+
+/* カレンダーが開いているときの不可視オーバーレイ */
+.calendar-overlay {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  width: 300vw;
+  height: 300vh;
+  z-index: 9998;
+  background: transparent;
+  cursor: default;
+}
