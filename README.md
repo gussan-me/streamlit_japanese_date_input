@@ -1,13 +1,12 @@
 # Japanese Date Input Component for Streamlit
 
 日本語表記に対応したStreamlit用のdate inputコンポーネントです。
+サードパーティコンポーネントとして実装する場合、[制限事項](#制限事項)があるため、基本的には`st.date_input`の使用を推奨します。
 
 ## 特徴
 
 - 📅 日本語の曜日表示（月、火、水、木、金、土、日）
 - 📆 日本語の月表示（1月、2月、...、12月）
-- 🗾 週の開始を月曜日に設定
-- 🎌 日本で一般的な日付フォーマット（YYYY/MM/DD）をデフォルトに
 
 ## インストール
 
@@ -15,7 +14,7 @@
 pip install streamlit-japanese-date-input
 ```
 
-![demonstration](usage.gif)
+
 
 
 ## 使い方
@@ -23,10 +22,13 @@ pip install streamlit-japanese-date-input
 ### 基本的な使用例
 
 以下のスクリプトを実行することで、アプリケーションの諸々の挙動を確認することができます。
+以下のgifのような挙動になります。
 
 ```bash
 streamlit run example.py
 ```
+
+![demonstration](usage.gif)
 
 ### パラメータ
 
@@ -42,7 +44,8 @@ streamlit run example.py
 
 ### サイドバーでの使用について
 
-Streamlitのカスタムコンポーネントは独立したiframe内で動作するため、自動的にサイドバーコンテキストを検出することができません。そのため、サイドバーで使用する場合は`sidebar_mode=True`を明示的に指定する必要があります。
+Streamlitのカスタムコンポーネントは独立したiframe内で動作するため、Streamlitのサイドバーの中に、このコンポーネントを配置していることを自動的に検出することができません。
+そのため、サイドバーで使用する場合は`sidebar_mode=True`を明示的に指定する必要があります。
 
 ```python
 # サイドバーでの使用例
@@ -53,22 +56,20 @@ with st.sidebar:
     )
 ```
 
-`sidebar_mode=True`を設定すると
-- 背景色が白になり、サイドバーのデザインに調和します
-- テキストカラーが黒になります
+`sidebar_mode=True`を設定すると、背景色が白色・テキストが黒色となり、サイドバーのデザインに調和します
 
 ## 制限事項
 
 ### 1. iframe内での表示制約
 
 カスタムコンポーネントは iframe 内で動作するため、カレンダーを親ウィンドウの上に重ねて表示する「ダイアログ形式」は実現できません。
+以下の制限があります。
 
  * 狭いコンテナやサイドバーではカレンダーが見切れる
  * iframe を超えて表示することはできない
  * 高さを動的に調整しても限界がある
 
-一方で`st.date_input`はiframeではなくStreamlit本体のウィジェットなので、こうした制約がなく常にきれいに表示されます。
-
+一方、st.date_input は iframe ではなく Streamlit 本体のウィジェットのため、こうした制約がなく常に正しく表示されます。
 
 ### 2. サイドバーや狭いレイアウトでの自動検出不可
 
@@ -78,8 +79,5 @@ with st.sidebar:
 
 ### 3. メンテナンスや互換性の面
 
-カスタムコンポーネントはReactとStreamlit Components APIに依存するため、
-Streamlitのアップデートやテーマ変更によって動作が壊れるリスクがあります。
-
-また、前述したiframeの制約を回避するために複雑な実装や高さ調整が必要になります。
-
+カスタムコンポーネントは React と Streamlit Components API に依存するため、Streamlit のアップデートやテーマ変更により動作が壊れる可能性があります。
+また、iframe の制約を回避するために複雑な実装や高さ調整が必要になる場合があります。
